@@ -5,6 +5,7 @@
 import os
 from abc import abstractmethod,ABC
 import json
+import configparser
 
 
 class FileProcessorStrategy(ABC):
@@ -70,10 +71,30 @@ class IniFileProcessor(FileProcessorStrategy):
     """
     ini文件处理类，继承自FileProcessor抽象类，实现读取ini文件的方法
     """
-    def write_file(self,data,mode:str = 'update'):
+    def __init__(self,file_path:str):
+        super().__init__(file_path)
+        self.config = configparser.ConfigParser()
+
+    def write_file(self,data = None,mode:str = 'update',section_name:str = None):
+        self._set_section(section_name)
+        if data is not None:
+            if type(data) == dict:
+                for key,value in data.items():
+                    self.config.set(section_name,key,value)
+        if mode == 'update':
+            with open(self.filepath, 'w') as configfile:
+                self.config.write(configfile)
+        self.config.remove_section(section_name)
+
+    def get_data(self):
         pass
-    def get_data(self, file_type:str = 'dict'):
-        pass
+
+    def _set_section(self,section_name:str = None):
+        if not self.config.has_section(section_name):
+            self.config.add_section(section_name)
+            return True
+        else:
+            return False
 
 class CsvFileProcessor(FileProcessorStrategy):
     """
