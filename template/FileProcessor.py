@@ -6,7 +6,7 @@ import os
 from abc import abstractmethod,ABC
 import json
 import configparser
-
+import pandas as pd
 
 class FileProcessorStrategy(ABC):
     """
@@ -64,7 +64,10 @@ class ExcelFileProcessor(FileProcessorStrategy):
         pass
 
     def get_data(self, file_type:str = 'dict'):
-        pass
+        file = pd.read_excel(self.filepath)
+        match file_type:
+            case 'dict':
+                return file.to_dict(orient='records')
 
 
 class IniFileProcessor(FileProcessorStrategy):
