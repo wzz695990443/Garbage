@@ -8,7 +8,7 @@ import os
 import configparser
 
 
-def decode(self, base64str):
+def decode(base64str):
     tmp = base64.b64decode(base64str)
     return bytearray([(b << 1 & 255) | (b >> 7) for b in tmp]).decode("utf8")
 

@@ -20,6 +20,7 @@ class DBtestconnect():
             raise NameError('请输入正确的文件路径！')
 
     def get_conn_info(self):
+        global testconn
         ini = configparser.ConfigParser(allow_no_value=True)
         ini.read(self.path, encoding='utf8')
         connections = [r for r in ini.sections() if r.startswith('Connection')]
@@ -38,9 +39,10 @@ class DBtestconnect():
                 testconn.connection_timeout = 5
                 testconn.connect()
                 self.conninfo.append({'name': name, 'db_host': host, 'db_port': port, 'db_user': user, 'db_pwd': password, 'db_ssh_host': sshhost, 'db_ssh_port': sshport, 'db_ssh_user': sshuser, 'db_ssh_pwd': sshpwd})
-                testconn.close()
             except Exception as e:
                 print(e)
+            finally:
+                testconn.close()
         return self.conninfo
 
     def print_conn_info(self):
