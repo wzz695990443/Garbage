@@ -18,5 +18,16 @@ from DBtestconnect import DBtestconnect
 # DBtest.get_conn_info()
 # DBtest.print_conn_info()
 
-hotel_code = '1234'
-print (f'hello {hotel_code}','hotel')
+# hotel_group_id = [['1']]
+# hotel_group_id[0][0] = '2'
+# print(f'INSERT INTO up_status(hotel_id,up_step,time_begin,time_end,time_long,remark) VALUES({hotel_group_id[0][0]},\'COMPANY\',NOW(),NULL,0,\'\')')
+
+
+dict = [
+    {'a':'1','b':'2','c':'3','d':'4'},
+    {'a':'5','b':'6','c':'7','d':'8'},
+    {'a':'9','b':'10','c':'11','d':'12'}
+]
+#
+# for item in dict:
+#     for
