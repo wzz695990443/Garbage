@@ -60,14 +60,23 @@ class ExcelFileProcessor(FileProcessorStrategy):
     """
     Excel文件处理类，继承自FileProcessor抽象类，实现读取Excel文件的方法
     """
+
+    def __init__(self, file_path: str):
+        super().__init__(file_path)
+        self.file = None
+
+    def read_file(self):
+        self.file = pd.read_excel(self.filepath,engine='openpyxl')
+
     def write_file(self,data,mode:str = 'update'):
         pass
 
     def get_data(self, file_type:str = 'dict'):
-        file = pd.read_excel(self.filepath)
         match file_type:
             case 'dict':
-                return file.to_dict(orient='records')
+                return self.file.to_dict(orient='records')
+            case 'DataFrame':
+                return pd.DataFrame(self.file)
 
 
 class IniFileProcessor(FileProcessorStrategy):
