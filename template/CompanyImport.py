@@ -1,11 +1,14 @@
-import tool
-from tool import convert_dict_valuestype
-from DBConnect import DBConnect
+import datetime
+
+from template.tool import convert_dict_valuestype
+from template.DBConnect import DBConnect
+import pandas as pd
 
 company_datatype = {'no': 'varchar', 'accnt': 'varchar', 'name': 'varchar', 'valid_begin': 'varchar',
                     'valid_end': 'varchar', 'sys_cat': 'varchar', 'linkman1': 'varchar', 'ratecode': 'varchar',
                     'mobile': 'varchar', 'phone': 'varchar', 'fax': 'varchar', 'saleman': 'varchar',
                     'street': 'varchar', }
+
 
 
 def companydata_process(companydata, conn: DBConnect, hotel_code):
@@ -57,4 +60,11 @@ def companydata_import(company_data, conn: DBConnect,hotel_code):
     conn.execute(f'INSERT INTO up_status(hotel_id,up_step,time_begin,time_end,time_long,remark) VALUES({hotel_group_id[0][0]},\'COMPANY\',NOW(),NULL,0,\'\')')
 
     conn.close()
+
+class CompanyImport:
+    def __init__(self):
+        pass
+
+
+
 

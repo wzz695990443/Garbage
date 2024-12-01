@@ -4,7 +4,8 @@ DBConnect:用于连接数据库
 
 import pymysql
 from sshtunnel import SSHTunnelForwarder
-from tool import is_meaningful
+
+from template.tool import is_meaningful
 
 
 class DBConnect:
