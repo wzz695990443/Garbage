@@ -9,7 +9,7 @@ from template.tool import is_meaningful
 
 
 class DBConnect:
-    def __init__(self, db_host, db_port: int, db_user, db_pwd, db_name=None, db_ssh_host=None, db_ssh_port: int=None, db_ssh_user=None, db_ssh_pwd=None, db_charset='utf8'):
+    def __init__(self, db_host, db_port: int, db_user, db_pwd, db_name=None, db_ssh_host=None, db_ssh_port: int=None, db_ssh_user=None, db_ssh_pwd=None, db_charset='utf8',** kwargs):
         self.conn = None
         self.server = None
         self.db_host = db_host
