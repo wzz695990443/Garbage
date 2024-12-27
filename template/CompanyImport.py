@@ -12,7 +12,6 @@ company_datatype = {'no': 'varchar', 'accnt': 'varchar', 'name': 'varchar', 'val
 
 def companydata_process(companydata: pd.DataFrame, conn: DBConnect, hotel_code) -> pd.DataFrame:
     n = 0
-    # data: list = companydata
     data: pd.DataFrame = companydata
     conn.connect()
     hotel_group_id = conn.query(f'select hotel_group_id from hotel where code = {hotel_code}')
@@ -25,37 +24,22 @@ def companydata_process(companydata: pd.DataFrame, conn: DBConnect, hotel_code) 
     data.astype(str)
     for index, row in data.iterrows():
         match row['sys_cat']:
-
-    # for item in data:
-    #     convert_dict_valuestype(item, company_datatype, True)
-    #     for key, value in item.items():
-    #         match key:
-    #             case 'sys_cat':
-    #                 match item['sys_cat']:
-    #                     case '协议单位':
-    #                         item['sys_cat'] = 'C'
-    #                     case '订房中心':
-    #                         item['sys_cat'] = 'S'
-    #                     case '旅行社':
-    #                         item['sys_cat'] = 'A'
-    #             case 'name':
-    #                 item['name'] = item['name'].strip()
-    #             case 'mobile':
-    #                 item['mobile'] = item['mobile'].strip()
-    #             case 'phone':
-    #                 item['phone'] = item['phone'].strip()
-    #             case 'saleman':
-    #                 item['saleman'] = item['saleman'].strip()
-    #                 for code, saleman in sales_man:
-    #                     if item['saleman'] == saleman:
-    #                         item['saleman'] = code
-    #                         break
-    #             case 'no':
-    #                 item['no'] = item['no'].strip()
-    #             case _:
-    #                 pass
-    #     item['accnt'] = n
-    #     n = n + 1
+            case '协议单位':
+                row['sys_cat'] = 'C'
+            case '订房中心':
+                row['sys_cat'] = 'S'
+            case '旅行社':
+                row['sys_cat'] = 'A'
+        row['name'] = row['name'].strip()
+        row['mobile'] = row['mobile'].strip()
+        row['phone'] = row['phone'].strip()
+        row['saleman'] = row['saleman'].strip()
+        for code, saleman in sales_man:
+            if row['saleman'] == saleman:
+                row['saleman'] = code
+                break
+        row['accnt'] = n
+        n = n + 1
 
     return data
 

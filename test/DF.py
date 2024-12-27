@@ -11,12 +11,16 @@ if __name__ == '__main__':
     company_base.hotel_group_id = 2
     company_base.hotel_id = 9
     a = company_base.get()
+    for index, row in a.iterrows():
+        print(row)
+        print(type(row))
+        print(int(index))
     # for item in a.loc[0]:
     #     print(item)
     # print(", ".join(row for index,row in a.iterrows()))
-    for index, row in a.iterrows():
-        sql = f'INSERT INTO company_base({", ".join(item for item in company_base.table_columns)}) VALUES ({company_base.hotel_group_id},{company_base.hotel_id},NULL,{", ".join(item for item in row[3:].astype(str))})'
-        print(sql)
+    # for index, row in a.iterrows():
+    #     sql = f'INSERT INTO company_base({", ".join(item for item in company_base.table_columns)}) VALUES ({company_base.hotel_group_id},{company_base.hotel_id},NULL,{", ".join(item for item in row[3:].astype(str))})'
+    #     print(sql)
     # print(a)
     # company_base.init_type()
     # b = company_base.get()
