@@ -1,0 +1,17 @@
+[gc_project]
+db_host = '192.168.63.240'
+db_port = '3306'
+db_user = 'gc_spt'
+db_pwd  = 'gc_spt20220509'
+is_ssh  = true
+db_ssh_host = '122.224.119.138'
+db_ssh_port = '13305'
+db_ssh_user = 'root'
+db_ssh_pwd  = '240.deviskaifa'
+
+[gcschool]
+db_host = '115.159.70.34'
+db_port = '3306'
+db_user = 'root'
+db_pwd  = 'GC-devisk(aifa'
+is_ssh  = false

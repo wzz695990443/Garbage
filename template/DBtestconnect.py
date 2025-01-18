@@ -7,10 +7,11 @@ import os
 
 import DBConnect
 from tool import decode
+import ConfigProcess
 
 
 class DBtestconnect():
-    def __init__(self,path):
+    def __init__(self,path = '../config.toml'):
         self.conninfo = []
         if not isinstance(path,str):
             raise TypeError('请输入正确参数类型！')
