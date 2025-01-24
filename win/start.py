@@ -1,21 +1,36 @@
-import tkinter as tk
-import pywinstyles
-
+from template.DBConnect import DBConnect
+from template.ConfigProcess import ConfigProcess
+from template.DBtestconnect import DBtestconnect
 
 if __name__ == '__main__':
-    import tkinter as tk
-
-    # 创建窗口
-    window = tk.Tk()
-    window.title('Mywindow')  # 窗口的标题
-    window.geometry('200x100')  # 窗口的大小
-    # 定义一个lable
-    l = tk.Label(window,
-                 text='Hi! this is TK!',  # 标签的文字
-                 bg='green',  # 标签背景颜色
-                 font=('Arial', 12),  # 字体和字体大小
-                 width=15, height=2  # 标签长宽（以字符长度计算）
-                 )
-    l.pack()  # 固定窗口位置
-
-    window.mainloop()
+    db = DBtestconnect()
+    print(db.test_connect('gc_project'))
+    
+    
+    # cp = ConfigProcess()
+    # conn_info = cp.get_conn_info('gc_project')
+    # print(conn_info)
+    # print(type(conn_info))
+    
+    
+    # cp = ConfigProcess()
+    # conn_info = cp.get_conn_info('gc_project')
+    # conn = DBConnect()
+    # conn.form_connect(conn_info)
+    # print(type(conn.db_port))
+    # conn.connect()
+    # conn.close()
+    
+    # conn = DBConnect(db_host = '192.168.63.240',
+    #                     db_port = 3306,
+    #                     db_user = 'gc_spt',
+    #                     db_pwd  = 'gc_spt20220509',
+    #                     db_ssh_host = '122.224.119.138',
+    #                     db_ssh_port = 13305,
+    #                     db_ssh_user = 'root',
+    #                     db_ssh_pwd  = '240.deviskaifa')
+    # conn.connect()
+    # conn.close()
+    
+    # a = '1'
+    # print(type(int(a)))

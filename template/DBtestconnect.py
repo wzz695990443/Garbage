@@ -5,9 +5,9 @@ DBupdateinfo:用于从SQLyog数据库连接配置的ini文件中批量获取能�
 import configparser
 import os
 
-import DBConnect
-from tool import decode
-import ConfigProcess
+from template.DBConnect import DBConnect
+from template.tool import decode
+from template.ConfigProcess import ConfigProcess
 
 
 class DBtestconnect():
@@ -20,31 +20,21 @@ class DBtestconnect():
         else:
             raise NameError('请输入正确的文件路径！')
 
-    def get_conn_info(self):
-        global testconn
-        ini = configparser.ConfigParser(allow_no_value=True)
-        ini.read(self.path, encoding='utf8')
-        connections = [r for r in ini.sections() if r.startswith('Connection')]
-        for c in connections:
-            try:
-                name = ini.get(c, 'Name')
-                host = ini.get(c, 'Host')
-                port = ini.getint(c, 'Port')
-                user = ini.get(c, 'User')
-                password = decode(ini.get(c, 'Password'))
-                sshhost = ini.get(c, 'SshHost')
-                sshport = ini.getint(c, 'SshPort')
-                sshuser = ini.get(c, 'SshUser')
-                sshpwd = decode(ini.get(c, 'SshPwd'))
-                testconn = DBConnect.DBConnect(host, port, user, password, '', sshhost, sshport, sshuser, sshpwd)
-                testconn.connection_timeout = 5
-                testconn.connect()
-                self.conninfo.append({'name': name, 'db_host': host, 'db_port': port, 'db_user': user, 'db_pwd': password, 'db_ssh_host': sshhost, 'db_ssh_port': sshport, 'db_ssh_user': sshuser, 'db_ssh_pwd': sshpwd})
-            except Exception as e:
-                print(e)
-            finally:
-                testconn.close()
-        return self.conninfo
+    def test_connect(self,conn_name):
+        global conn
+        cp = ConfigProcess()
+        conn_info = cp.get_conn_info(conn_name)
+        conn = DBConnect()
+        conn.form_connect(conn_info)
+        
+        try:       
+            conn.connect()            
+        except Exception as e:
+            return(False)
+        finally:
+            conn.close()
+            
+        return(True)
 
     def print_conn_info(self):
         for conn in self.conninfo:

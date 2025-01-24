@@ -27,16 +27,16 @@ class ConfigProcess:
             self.db_ssh_host = self.connectinfo[connect_name]["db_ssh_host"]
             self.db_ssh_port = self.connectinfo[connect_name]["db_ssh_port"]
             self.db_ssh_user = self.connectinfo[connect_name]["db_ssh_user"]
-            self.db_ssh_pwd = self.connectinfo[connect_name]["db_ssh_pwd"]
+            self.db_ssh_pwd  = self.connectinfo[connect_name]["db_ssh_pwd"]
         return {
             "db_host": self.db_host,
             "db_port": self.db_port,
             "db_user": self.db_user,
-            "db_pwd": self.db_pwd,
+            "db_pwd" : self.db_pwd,
             "db_ssh_host": self.db_ssh_host,
             "db_ssh_port": self.db_ssh_port,
             "db_ssh_user": self.db_ssh_user,
-            "db_ssh_pwd": self.db_ssh_pwd
+            "db_ssh_pwd" : self.db_ssh_pwd
         }
 
     def get_conn_name(self):

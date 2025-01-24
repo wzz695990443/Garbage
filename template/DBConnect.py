@@ -9,7 +9,7 @@ from template.tool import is_meaningful
 
 
 class DBConnect:
-    def __init__(self, db_host, db_port: int, db_user, db_pwd, db_name=None, db_ssh_host=None, db_ssh_port: int=None, db_ssh_user=None, db_ssh_pwd=None, db_charset='utf8',** kwargs):
+    def __init__(self, db_host = None, db_port: int= None, db_user= None, db_pwd= None, db_name=None, db_ssh_host=None, db_ssh_port: int=None, db_ssh_user=None, db_ssh_pwd=None, db_charset='utf8',** kwargs):
         self.conn = None
         self.server = None
         self.db_host = db_host
@@ -71,9 +71,32 @@ class DBConnect:
         cursor.close()
         return result
 
-    @classmethod
-    def form_connect(cls,* list,** dict):
-        pass
+
+    def form_connect(self,dict :dict):
+        for key,value in dict.items():
+            if key == 'db_host':
+                self.db_host = value
+            elif key == 'db_port':
+                self.db_port = int(value)
+            elif key == 'db_user':
+                self.db_user = value
+            elif key == 'db_pwd':
+                self.db_pwd = value
+            elif key == 'db_name':
+                self.db_name = value
+            elif key == 'db_ssh_host':
+                self.db_ssh_host = value
+            elif key == 'db_ssh_port':
+                self.db_ssh_port = int(value)
+            elif key == 'db_ssh_user':
+                self.db_ssh_user = value
+            elif key == 'db_ssh_pwd':
+                self.db_ssh_pwd = value
+            elif key == 'db_charset':
+                self.db_charset = value
+            else:
+                raise ValueError('Invalid key: {}'.format(key))
+
 
 
 
