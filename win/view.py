@@ -1,10 +1,10 @@
 import sys
+import os
 from PySide6.QtWidgets import QApplication, QWidget,QFileDialog
 from PySide6.scripts.project import QMLDIR_FILE
 
 from QTdesign.DatabaseChose import Ui_importFunction
 from template.ConfigProcess import ConfigProcess
-# from template.DBtestconnect import DBtestconnect
 
 class my_DatabaseChose(QWidget, Ui_importFunction):
     def __init__(self):
