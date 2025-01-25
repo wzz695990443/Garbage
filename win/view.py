@@ -1,5 +1,5 @@
 import sys
-from PySide6.QtWidgets import QApplication, QWidget,QFileDialog
+from PySide6.QtWidgets import QApplication, QWidget,QFileDialog,QMessageBox
 from PySide6.scripts.project import QMLDIR_FILE
 
 from QTdesign.DatabaseChose import Ui_importFunction
@@ -25,7 +25,6 @@ class my_DatabaseChose(QWidget, Ui_importFunction):
         self.companyImportrb.clicked.connect(self.companyImportrb_clicked)
         self.checkBt.clicked.connect(self.checkBt_clicked)
         self.choseFile.clicked.connect(self.choseFile_clicked)
-        self.checkBt.clicked.connect(self.checkBt_clicked)
 
     def companyImportrb_clicked(self):
         self.pmsChose.setDisabled(True)
@@ -48,12 +47,17 @@ class my_DatabaseChose(QWidget, Ui_importFunction):
 
     def checkBt_clicked(self):
         dt = DBtestconnect()
+        flag = False
         if self.pmsChose.isEnabled():
-            dt.test_connect(self.pmsChose.currentText())
-        elif self.memberChose.isEnabled():
-            dt.test_connect(self.memberChose.currentText())
-        elif self.groupChose.isEnabled():
-            dt.test_connect(self.groupChose.currentText())
+            flag = dt.test_connect(self.pmsChose.currentText())
+        if self.memberChose.isEnabled():
+            flag = dt.test_connect(self.memberChose.currentText())
+        if self.groupChose.isEnabled():
+            flag = dt.test_connect(self.groupChose.currentText())
+        if flag:
+            reply = QMessageBox.information(self, '连接成功', '连接成功')
+        else:
+            reply = QMessageBox.information(self, '连接失败', '连接失败')
 
 
 if __name__ == '__main__':

@@ -54,7 +54,8 @@ class DBConnect:
             )
 
     def close(self):
-        self.conn.close()
+        if self.conn is not None:
+            self.conn.close()
         if self.db_ssh_host is not None and self.db_ssh_port is not None and self.db_ssh_user is not None and self.db_ssh_pwd is not None:
             self.server.stop()
 
@@ -87,7 +88,7 @@ class DBConnect:
             elif key == 'db_ssh_host':
                 self.db_ssh_host = value
             elif key == 'db_ssh_port':
-                self.db_ssh_port = int(value)
+                self.db_ssh_port = value
             elif key == 'db_ssh_user':
                 self.db_ssh_user = value
             elif key == 'db_ssh_pwd':

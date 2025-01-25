@@ -10,7 +10,7 @@ import pandas as pd
 
 class FileProcessorStrategy(ABC):
     """
-    文件处理抽象类，定义了文件处理的基本方法
+    文件处理抽象类,定义了文件处理的基本方法
     """
 
     def __init__(self,file_path:str):
@@ -18,7 +18,7 @@ class FileProcessorStrategy(ABC):
         self.data = None
         # 检测路径是文件还是文件夹
         if os.path.isdir(self.filepath):
-            raise ValueError(f"{self.filepath} 是一个文件夹，而不是文件")
+            raise ValueError(f"{self.filepath} 是一个文件夹,而不是文件")
         else:
             # 确保文件夹存在
             os.makedirs(os.path.dirname(self.filepath), exist_ok=True)
@@ -40,7 +40,7 @@ class FileProcessorStrategy(ABC):
 
 class JsonFileProcessor(FileProcessorStrategy):
     """
-    JSON文件处理类，继承自FileProcessor抽象类，实现处理JSON文件的方法
+    JSON文件处理类,继承自FileProcessor抽象类,实现处理JSON文件的方法
     """
     def write_file(self,data, mode:str = 'update'):
         if mode == 'update':
@@ -58,7 +58,7 @@ class JsonFileProcessor(FileProcessorStrategy):
 
 class ExcelFileProcessor(FileProcessorStrategy):
     """
-    Excel文件处理类，继承自FileProcessor抽象类，实现读取Excel文件的方法
+    Excel文件处理类,继承自FileProcessor抽象类,实现读取Excel文件的方法
     """
 
     def __init__(self, file_path: str):
@@ -81,7 +81,7 @@ class ExcelFileProcessor(FileProcessorStrategy):
 
 class IniFileProcessor(FileProcessorStrategy):
     """
-    ini文件处理类，继承自FileProcessor抽象类，实现读取ini文件的方法
+    ini文件处理类,继承自FileProcessor抽象类,实现读取ini文件的方法
     """
     def __init__(self,file_path:str):
         super().__init__(file_path)
@@ -110,7 +110,7 @@ class IniFileProcessor(FileProcessorStrategy):
 
 class CsvFileProcessor(FileProcessorStrategy):
     """
-    csv文件处理类，继承自FileProcessor抽象类，实现读取csv文件的方法
+    csv文件处理类,继承自FileProcessor抽象类,实现读取csv文件的方法
     """
     def write_file(self,data,mode:str = 'update'):
         pass
@@ -121,7 +121,7 @@ class CsvFileProcessor(FileProcessorStrategy):
 
 class FileProcessor:
     """
-    文件处理类，根据文件类型选择对应的处理器，并调用处理器的读取方法
+    文件处理类,根据文件类型选择对应的处理器,并调用处理器的读取方法
     """
     def __init__(self,file_path:str):
         self.file_path = file_path
