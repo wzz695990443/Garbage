@@ -6,7 +6,7 @@ import datetime
 import json
 import os
 import configparser
-
+import pandas as pd
 
 def decode(base64str):
     tmp = base64.b64decode(base64str)
@@ -189,3 +189,34 @@ def save_data_to_ini(data, file_path, section='default', mode = 'update'):
 
     print(f"数据已成功保存到 {file_path}")
 
+
+
+def insert_row_at_index(df, row_data, index):
+    """
+    在指定索引位置插入一行或多行数据到 DataFrame 中。
+
+    :param df: 原始 DataFrame
+    :param row_data: 要插入的行数据，可以是字典、Series 或 DataFrame
+    :param index: 插入位置的索引
+    :return: 插入新行或多行后的 DataFrame
+    """
+    if not isinstance(row_data, (dict, pd.Series, pd.DataFrame)):
+        raise ValueError("row_data 必须是字典、pandas Series 或 pandas DataFrame")
+    
+    if index < 0 or index > df.shape[0]:
+        raise IndexError("索引超出范围")
+    
+    # 将 row_data 转换为 DataFrame
+    if isinstance(row_data, dict):
+        row_data = pd.DataFrame([row_data])
+    elif isinstance(row_data, pd.Series):
+        row_data = row_data.to_frame().T
+    
+    # 分割 DataFrame
+    df_before = df.iloc[:index]
+    df_after = df.iloc[index:]
+    
+    # 合并 DataFrame 和新行或多行
+    new_df = pd.concat([df_before, row_data, df_after], ignore_index=True)
+    
+    return new_df
