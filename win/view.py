@@ -13,10 +13,9 @@ class my_DatabaseChose(QWidget, Ui_importFunction):
         self.file_path = None
         self.setupUi(self)
 
-        database_name = ConfigProcess().get_conn_name()
-        self.pmsChose.addItems(database_name)
-        self.memberChose.addItems(database_name)
-        self.groupChose.addItems(database_name)
+        self.pmsChose.addItems(ConfigProcess().get_conn_name("pms"))
+        self.memberChose.addItems(ConfigProcess().get_conn_name("member"))
+        self.groupChose.addItems(ConfigProcess().get_conn_name("group"))
 
         self.bind()
 

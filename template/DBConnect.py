@@ -95,8 +95,8 @@ class DBConnect:
                 self.db_ssh_pwd = value
             elif key == 'db_charset':
                 self.db_charset = value
-            else:
-                raise ValueError('Invalid key: {}'.format(key))
+            # else:
+            #     raise ValueError('Invalid key: {}'.format(key))
 
 
 
