@@ -1,9 +1,10 @@
 import sys
 import pandas as pd
-from PySide6.QtWidgets import QApplication, QMainWindow, QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget, QPushButton, QFileDialog, QAbstractItemView, QMessageBox
-from PySide6.QtCore import Qt, QMimeData, QRect
-from PySide6.QtGui import QDrag, QCursor
-import template.tool as tool
+from PySide6.QtWidgets import QApplication, QMainWindow, QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget, QPushButton, QFileDialog, QAbstractItemView, QMessageBox, QTableWidgetSelectionRange
+from PySide6.QtCore import Qt, QTimer
+import logging
+
+logging.basicConfig(level=logging.INFO)
 
 class ExcelTable(QMainWindow):
     def __init__(self):
@@ -19,12 +20,7 @@ class ExcelTable(QMainWindow):
         self.central_widget.setLayout(self.layout)  # 将布局设置为中心部件的布局
         
         self.table_widget = QTableWidget()  # 创建表格部件
-        self.table_widget.setDragEnabled(True)  # 启用拖拽功能
-        self.table_widget.setAcceptDrops(True)  # 允许接收拖拽数据
-        self.table_widget.setDragDropOverwriteMode(False)  # 禁用覆盖模式
         self.table_widget.setSelectionBehavior(QAbstractItemView.SelectRows)  # 设置选择行为为整行选择
-        self.table_widget.setDropIndicatorShown(True)  # 显示下拉指示器
-        self.table_widget.setDragDropMode(QAbstractItemView.InternalMove)  # 设置拖拽模式为内部移动
         self.layout.addWidget(self.table_widget)  # 将表格部件添加到布局中
         
         self.load_button = QPushButton("Load Excel File")  # 创建加载文件按钮
@@ -33,29 +29,47 @@ class ExcelTable(QMainWindow):
         self.print_button = QPushButton("Print Excel File")  # 创建打印文件按钮
         self.layout.addWidget(self.print_button)  # 将按钮添加到布局中
         
+        self.move_up_button = QPushButton("Move Up")  # 创建向上移动按钮
+        self.layout.addWidget(self.move_up_button)  # 将按钮添加到布局中
+        
+        self.move_down_button = QPushButton("Move Down")  # 创建向下移动按钮
+        self.layout.addWidget(self.move_down_button)  # 将按钮添加到布局中
+        
         self.dataframe = None  # 初始化 DataFrame 为空
-        self.dragged_rows = []  # 初始化拖拽行列表为空
 
         self.bind()  # 绑定信号和槽
+        
+        # 初始化批量更新相关的变量
+        self._pending_updates = []
+        self.UPDATE_THRESHOLD = 10  # 根据实际情况调整阈值
+        self.update_timer = QTimer(self)
+        self.update_timer.timeout.connect(self.flush_pending_updates)
+        self.update_timer.start(500)  # 每500毫秒检查一次
 
     def bind(self):
         """绑定信号和槽"""
         self.table_widget.cellChanged.connect(self.update_dataframe)  # 绑定单元格更改事件到更新函数
         self.load_button.clicked.connect(self.load_excel)  # 绑定按钮点击事件到加载函数
         self.print_button.clicked.connect(self.print_excel)  # 绑定按钮点击事件到打印函数
+        self.move_up_button.clicked.connect(self.move_selected_rows_up)  # 绑定向上移动按钮点击事件
+        self.move_down_button.clicked.connect(self.move_selected_rows_down)  # 绑定向下移动按钮点击事件
 
     def load_excel(self):
         """加载 Excel 文件并更新表格"""
-        file_path, _ = QFileDialog.getOpenFileName(self, "Open Excel File", "", "Excel Files (*.xlsx *.xls)")  # 打开文件对话框选择文件
-        if not file_path:
-            QMessageBox.warning(self, "Warning", "No file selected.")
-            return
-        
         try:
+            file_path, _ = QFileDialog.getOpenFileName(self, "Open Excel File", "", "Excel Files (*.xlsx *.xls)")  # 打开文件对话框选择文件
+            if not file_path:
+                QMessageBox.warning(self, "Warning", "No file selected.")
+                return
+            
+            # 验证文件是否为有效的 Excel 文件
+            if not file_path.endswith(('.xlsx', '.xls')):
+                raise ValueError("Invalid file format")
+
             self.dataframe = pd.read_excel(file_path)  # 读取 Excel 文件到 DataFrame
             self.update_table()  # 更新表格显示
         except Exception as e:
-            print(f"Error loading file: {e}")  # 打印错误信息
+            logging.error(f"Error loading file: {e}")  # 记录错误日志
             QMessageBox.critical(self, "Error", f"Failed to load file: {e}")  # 弹出错误消息框
 
     def update_table(self):
@@ -75,75 +89,128 @@ class ExcelTable(QMainWindow):
 
     def update_dataframe(self, row, col):
         """将表格中的更改同步到 DataFrame"""
-        if self.dataframe is not None:
-            item = self.table_widget.item(row, col)  # 获取表格项
-            if item is not None:
-                new_value = item.text()  # 获取表格项的新值
-                self.dataframe.iat[row, col] = new_value  # 更新 DataFrame 中对应位置的值
-                self.update_table()
+        if self.dataframe is None or self.table_widget is None:
+            return
+
+        try:
+            # 获取表格项
+            item = self.table_widget.item(row, col)
+            if item is None:
+                return
+
+            # 获取表格项的新值并尝试转换为目标列的数据类型
+            new_value = item.text()
+            target_dtype = self.dataframe.dtypes[col]
+            try:
+                new_value = target_dtype.type(new_value)
+            except (ValueError, TypeError):
+                logging.warning(f"无法将值 '{new_value}' 转换为列 {col} 的数据类型 {target_dtype}")
+                QMessageBox.warning(self, "Warning", f"无法将值 '{new_value}' 转换为列 {col} 的数据类型 {target_dtype}")
+                return
+
+            # 确保 row 和 col 在有效范围内
+            if row < 0 or row >= len(self.dataframe) or col < 0 or col >= len(self.dataframe.columns):
+                logging.warning(f"行 {row} 或列 {col} 超出 DataFrame 范围")
+                return
+
+            # 更新 DataFrame 中对应位置的值
+            self.dataframe.iat[row, col] = new_value
+
+            # 批量更新后统一调用一次 update_table
+            self._pending_updates.append((row, col))
+            if len(self._pending_updates) >= self.UPDATE_THRESHOLD:
+                self.flush_pending_updates()
+
+        except IndexError as e:
+            logging.error(f"索引超出范围: {e}")
+        except AttributeError as e:
+            logging.error(f"属性错误: {e}")
+
+    def flush_pending_updates(self):
+        """刷新待处理的更新"""
+        if self._pending_updates:
+            self.update_table()
+            self._pending_updates.clear()
 
     def print_excel(self):
         """打印当前 DataFrame 内容"""
         print(self.dataframe)
 
-    def dragEnterEvent(self, event):
-        # 禁止放置项目
-        event.ignore()
+    def move_selected_rows_up(self):
+        """将选中的行向上移动"""
+        selected_rows = self.get_selected_rows()
+        if not selected_rows:
+            return
 
-    def dropEvent(self, event):
-        # 禁止放置项目
-        event.ignore()
+        if min(selected_rows) == 0:
+            QMessageBox.warning(self, "Warning", "Cannot move top row up.")
+            return
 
-    def drop_event(self, event):
-        """自定义下拉事件，用于处理行移动"""
-        
-        if event.source() == self.table_widget:
-            target_row = self.table_widget.rowAt(event.position().y())  # 获取目标行索引
-            if target_row == -1:
-                target_row = self.table_widget.rowCount()  # 如果超出范围，则放置在最后一行
-            
-            mime_data = event.mimeData()
-            if mime_data.hasText():
-                dragged_rows_str = mime_data.text()
-                if dragged_rows_str.startswith("Rows "):
-                    try:
-                        dragged_rows = list(map(int, dragged_rows_str[5:].split()))
-                        if all(0 <= row < self.table_widget.rowCount() for row in dragged_rows):
-                            self.move_rows(dragged_rows, target_row)  # 移动选中的行到目标位置
-                            event.accept()  # 接受下拉事件
-                        else:
-                            event.ignore()  # 忽略无效的拖拽行
-                    except ValueError:
-                        event.ignore()  # 忽略无效的拖拽行
-                else:
-                    event.ignore()  # 忽略其他来源的下拉事件
-            else:
-                event.ignore()  # 忽略其他来源的下拉事件
-        else:
-            event.ignore()  # 忽略其他来源的下拉事件
-        QTableWidget.dropEvent(self.table_widget, event)  # 调用默认的下拉事件
+        # 移动所有选中的行作为一个整体
+        self.move_rows(selected_rows, -1)
 
-    def move_rows(self, from_rows, to_row):
+    def move_selected_rows_down(self):
+        """将选中的行向下移动"""
+        selected_rows = self.get_selected_rows()
+        if not selected_rows:
+            return
+
+        if max(selected_rows) == self.table_widget.rowCount() - 1:
+            QMessageBox.warning(self, "Warning", "Cannot move bottom row down.")
+            return
+
+        # 移动所有选中的行作为一个整体
+        self.move_rows(selected_rows, 1)
+
+    def move_rows(self, rows, offset):
         """移动指定行到目标位置"""
-        if not from_rows or to_row < 0 or to_row >= self.table_widget.rowCount():
-            return  # 如果没有要移动的行或目标行超出范围，则直接返回
-        
-        # 调整目标行索引
-        unique_from_rows = sorted(set(from_rows))
-        for row in unique_from_rows:
-            if row < to_row:
-                to_row -= 1
-        
-        # 提取要移动的行数据
-        rows_data = self.dataframe.iloc[unique_from_rows].copy()
-        
-        # 在目标位置插入新行
-        self.dataframe = tool.insert_row_at_index(self.dataframe, rows_data, to_row)
-        
+        if not rows:
+            return
+
+        # 确保行在有效范围内
+        if offset < 0 and min(rows) + offset < 0:
+            QMessageBox.warning(self, "Warning", "Cannot move top row up.")
+            return
+        if offset > 0 and max(rows) + offset >= self.table_widget.rowCount():
+            QMessageBox.warning(self, "Warning", "Cannot move bottom row down.")
+            return
+
+        # 获取选中的行数据
+        rows_data = self.dataframe.iloc[rows].copy()
+
         # 删除原行
-        self.dataframe = self.dataframe.drop(unique_from_rows).reset_index(drop=True)
-        
-        self.update_table()  # 更新表格显示
+        self.dataframe.drop(rows, inplace=True)
+
+        # 插入新行
+        target_row = min(rows) + offset
+        self.dataframe = pd.concat([self.dataframe.iloc[:target_row], rows_data, self.dataframe.iloc[target_row:]]).reset_index(drop=True)
+
+        # 更新表格显示
+        self.update_table()
+
+        # 重新选择移动后的行
+        if rows:
+            start_row = target_row
+            end_row = target_row + len(rows) - 1
+            selection_range = QTableWidgetSelectionRange(start_row, 0, end_row, self.table_widget.columnCount() - 1)
+            if offset < 0:
+                disselection_range = QTableWidgetSelectionRange(max(rows), 0, max(rows), self.table_widget.columnCount() - 1)
+            elif offset > 0:
+                disselection_range = QTableWidgetSelectionRange(min(rows), 0, min(rows), self.table_widget.columnCount() - 1)
+            self.table_widget.setRangeSelected(selection_range, True)
+            self.table_widget.setRangeSelected(disselection_range, False)
+
+    def get_selected_rows(self):
+        """获取选中的行索引"""
+        selected_items = self.table_widget.selectedItems()
+        if not selected_items:
+            return []
+
+        selected_rows = set()
+        for item in selected_items:
+            selected_rows.add(item.row())
+
+        return sorted(list(selected_rows))
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)  # 创建应用程序实例
