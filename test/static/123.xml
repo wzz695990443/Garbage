@@ -1,0 +1,764 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="pos_report_menu_sum" language="groovy" pageWidth="1100" pageHeight="584" whenNoDataType="AllSectionsNoDetail" columnWidth="1090" leftMargin="5" rightMargin="5" topMargin="10" bottomMargin="10" isSummaryWithPageHeaderAndFooter="true">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<parameter name="IPMS_CURRENT_USER" class="java.lang.Object" isForPrompting="false"/>
+	<parameter name="IPMS_HOTEL_GROUP" class="java.lang.Object" isForPrompting="false"/>
+	<parameter name="IPMS_HOTEL" class="java.lang.Object" isForPrompting="false"/>
+	<parameter name="IPMS_STATION" class="java.lang.Object" isForPrompting="false"/>
+	<parameter name="IPMS_CASHIER" class="java.lang.Long" isForPrompting="false"/>
+	<parameter name="IPMS_APPLICATION" class="java.lang.Long" isForPrompting="false"/>
+	<parameter name="IPMS_LANGUAGE" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="IPMS_CURRENT_REPORT" class="java.lang.Object" isForPrompting="false"/>
+	<parameter name="IPMS_SYSTEM_DATE" class="java.util.Date" isForPrompting="false"/>
+	<parameter name="IPMS_BIZ_DATE" class="java.util.Date" isForPrompting="false"/>
+	<parameter name="IPMS_SYSTEM_MONTH_BEGIN" class="java.util.Date" isForPrompting="false"/>
+	<parameter name="IPMS_BIZ_MONTH_BEGIN" class="java.util.Date" isForPrompting="false"/>
+	<parameter name="IPMS_SYSTEM_MONTH_END" class="java.util.Date" isForPrompting="false"/>
+	<parameter name="IPMS_SYSTEM_YEAR" class="java.util.Date" isForPrompting="false"/>
+	<parameter name="IPMS_BIZ_YEAR" class="java.util.Date" isForPrompting="false"/>
+	<parameter name="IPMS_SYSTEM_YEAR_BEGIN" class="java.util.Date" isForPrompting="false"/>
+	<parameter name="IPMS_BIZ_YEAR_BEGIN" class="java.util.Date" isForPrompting="false"/>
+	<parameter name="IPMS_SYSTEM_YEAR_END" class="java.util.Date" isForPrompting="false"/>
+	<parameter name="IPMS_BIZ_YEAR_END" class="java.util.Date" isForPrompting="false"/>
+	<parameter name="IPMS_HOTEL_ID" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[$P{IPMS_HOTEL}.getId()]]></defaultValueExpression>
+	</parameter>
+	<parameter name="IPMS_HOTEL_GROUP_ID" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[$P{IPMS_HOTEL_GROUP}.getId()]]></defaultValueExpression>
+	</parameter>
+	<parameter name="BEGIN_DATE" class="java.lang.String"/>
+	<parameter name="END_DATE" class="java.lang.String"/>
+	<parameter name="SHIFT" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="EMPID" class="java.lang.String"/>
+	<parameter name="PCCODE" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[CALL up_pos_rep_menu_item_summary_section($P{IPMS_HOTEL_GROUP_ID},$P{IPMS_HOTEL_ID},$P{BEGIN_DATE},$P{END_DATE},$P{PCCODE},$P{EMPID},$P{SHIFT},'T','T','1');]]>
+	</queryString>
+	<field name="pccode" class="java.lang.String"/>
+	<field name="pccode_name" class="java.lang.String"/>
+	<field name="accnt" class="java.lang.String"/>
+	<field name="gsts" class="java.lang.Integer"/>
+	<field name="gsts_avg" class="java.math.BigDecimal"/>
+	<field name="tablenos" class="java.lang.Integer"/>
+	<field name="tablenos_avg" class="java.math.BigDecimal"/>
+	<field name="ta_code" class="java.lang.String"/>
+	<field name="ta_descript" class="java.lang.String"/>
+	<field name="amount" class="java.math.BigDecimal"/>
+	<field name="type" class="java.lang.String"/>
+	<field name="warn" class="java.lang.String"/>
+	<field name="cashier" class="java.lang.String"/>
+	<field name="shift1" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="77" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="61" width="100" height="16"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[营业日期：]]></text>
+			</staticText>
+			<textField pattern="yyyy/MM/dd">
+				<reportElement x="100" y="61" width="100" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{BEGIN_DATE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="23" width="800" height="22"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{IPMS_CURRENT_REPORT}.getDescript()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="800" height="23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="15" isBold="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[($P{IPMS_HOTEL}.getId().equals(0L) ? $P{IPMS_HOTEL_GROUP}.getDescript() : $P{IPMS_HOTEL}.getDescript())]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="200" y="61" width="20" height="16"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[至]]></text>
+			</staticText>
+			<textField pattern="yyyy/MM/dd">
+				<reportElement x="220" y="61" width="130" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{END_DATE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="45" width="400" height="16" forecolor="#FF3333"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="false" isItalic="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{warn}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageFooter>
+		<band height="15">
+			<textField>
+				<reportElement x="0" y="0" width="350" height="15"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page ("+$V{PAGE_NUMBER}+"/"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="350" y="0" width="50" height="15"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{PAGE_NUMBER}+")"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="400" y="0" width="400" height="15"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{IPMS_CURRENT_REPORT}.getAliasCode()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="96">
+			<crosstab>
+				<reportElement x="0" y="0" width="1090" height="96"/>
+				<crosstabParameter name="BEGIN_DATE">
+					<parameterValueExpression><![CDATA[$P{BEGIN_DATE}]]></parameterValueExpression>
+				</crosstabParameter>
+				<crosstabParameter name="END_DATE">
+					<parameterValueExpression><![CDATA[$P{END_DATE}]]></parameterValueExpression>
+				</crosstabParameter>
+				<crosstabParameter name="PCCODE">
+					<parameterValueExpression><![CDATA[$P{PCCODE}]]></parameterValueExpression>
+				</crosstabParameter>
+				<crosstabHeaderCell>
+					<cellContents>
+						<staticText>
+							<reportElement style="Crosstab Data Text" x="350" y="0" width="50" height="18"/>
+							<box>
+								<topPen lineWidth="0.5"/>
+								<leftPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font size="9" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+							</textElement>
+							<text><![CDATA[桌数]]></text>
+						</staticText>
+						<staticText>
+							<reportElement style="Crosstab Data Text" x="400" y="0" width="50" height="18"/>
+							<box>
+								<topPen lineWidth="0.5"/>
+								<leftPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font size="9" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+							</textElement>
+							<text><![CDATA[桌均消费]]></text>
+						</staticText>
+                        						<staticText>
+							<reportElement style="Crosstab Data Text" x="450" y="0" width="50" height="18"/>
+							<box>
+								<topPen lineWidth="0.5"/>
+								<leftPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font size="9" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+							</textElement>
+							<text><![CDATA[桌号名称]]></text>
+						</staticText>
+                        						<staticText>
+							<reportElement style="Crosstab Data Text" x="500" y="0" width="50" height="18"/>
+							<box>
+								<topPen lineWidth="0.5"/>
+								<leftPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font size="9" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+							</textElement>
+							<text><![CDATA[销售员]]></text>
+						</staticText>
+						<staticText>
+							<reportElement style="Crosstab Data Text" x="100" y="0" width="100" height="18"/>
+							<box>
+								<topPen lineWidth="0.5"/>
+								<leftPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font size="9" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+							</textElement>
+							<text><![CDATA[单号]]></text>
+						</staticText>
+                        <staticText>
+							<reportElement style="Crosstab Data Text" x="200" y="0" width="50" height="18"/>
+							<box>
+								<topPen lineWidth="0.5"/>
+								<leftPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font size="9" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+							</textElement>
+							<text><![CDATA[日期]]></text>
+						</staticText>
+						<staticText>
+							<reportElement style="Crosstab Data Text" x="300" y="0" width="50" height="18"/>
+							<box>
+								<topPen lineWidth="0.5"/>
+								<leftPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font size="9" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+							</textElement>
+							<text><![CDATA[人均消费]]></text>
+						</staticText>
+						<staticText>
+							<reportElement style="Crosstab Data Text" x="250" y="0" width="50" height="18"/>
+							<box>
+								<topPen lineWidth="0.5"/>
+								<leftPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font size="9" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+							</textElement>
+							<text><![CDATA[人数]]></text>
+						</staticText>
+						<staticText>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="100" height="18"/>
+							<box>
+								<topPen lineWidth="0.5"/>
+								<leftPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font size="9" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+							</textElement>
+							<text><![CDATA[营业点]]></text>
+						</staticText>
+					</cellContents>
+				</crosstabHeaderCell>
+				<rowGroup name="pccode" width="0">
+					<bucket>
+						<bucketExpression class="java.lang.String"><![CDATA[$F{pccode}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents>
+							<textField>
+								<reportElement style="Crosstab Data Text" x="0" y="0" width="0" height="18"/>
+								<textElement/>
+								<textFieldExpression class="java.lang.String"><![CDATA[$V{pccode}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents/>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="cashier" width="0">
+					<bucket>
+						<bucketExpression class="java.lang.String"><![CDATA[$F{cashier}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents>
+							<textField>
+								<reportElement style="Crosstab Data Text" x="0" y="0" width="0" height="18"/>
+								<textElement/>
+								<textFieldExpression class="java.lang.String"><![CDATA[$V{cashier}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents/>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="shift1" width="0">
+					<bucket>
+						<bucketExpression class="java.lang.String"><![CDATA[$F{shift1}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents>
+							<textField>
+								<reportElement style="Crosstab Data Text" x="0" y="0" width="0" height="18"/>
+								<textElement/>
+								<textFieldExpression class="java.lang.String"><![CDATA[$V{shift1}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents/>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="pccode_name" width="100" totalPosition="End">
+					<bucket>
+						<bucketExpression class="java.lang.String"><![CDATA[$F{pccode_name}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents backcolor="#F0F8FF" mode="Transparent">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField>
+								<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" x="0" y="0" width="100" height="18"/>
+								<box>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+								</textElement>
+								<textFieldExpression class="java.lang.String"><![CDATA[$V{pccode_name}.substring(4)]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents backcolor="#005FB3" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="accnt" width="100" totalPosition="End">
+					<bucket>
+						<bucketExpression class="java.lang.String"><![CDATA[$F{accnt}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents backcolor="#F0F8FF" mode="Transparent">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField>
+								<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" x="0" y="0" width="100" height="18"/>
+								<box>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+								</textElement>
+								<textFieldExpression class="java.lang.String"><![CDATA[$V{accnt}.substring(1)]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents backcolor="#BFE1FF" mode="Transparent">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="gsts" width="50">
+					<bucket>
+						<bucketExpression class="java.lang.String"><![CDATA[$F{gsts}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents>
+							<textField>
+								<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="18"/>
+								<box>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+								</textElement>
+								<textFieldExpression class="java.lang.String"><![CDATA[$V{gsts}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents/>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="gsts_avg" width="50">
+					<bucket>
+						<bucketExpression class="java.lang.String"><![CDATA[$F{gsts_avg}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents>
+							<textField>
+								<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="18"/>
+								<box rightPadding="3">
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font size="9" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+								</textElement>
+								<textFieldExpression class="java.lang.String"><![CDATA[$V{gsts_avg}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents/>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="tablenos" width="50">
+					<bucket>
+						<bucketExpression class="java.lang.String"><![CDATA[$F{tablenos}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents>
+							<textField>
+								<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="18"/>
+								<box>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+								</textElement>
+								<textFieldExpression class="java.lang.String"><![CDATA[$V{tablenos}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents/>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="tablenos_avg" width="50">
+					<bucket>
+						<bucketExpression class="java.lang.String"><![CDATA[$F{tablenos_avg}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents>
+							<textField>
+								<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="18"/>
+								<box rightPadding="3">
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font size="9" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+								</textElement>
+								<textFieldExpression class="java.lang.String"><![CDATA[$V{tablenos_avg}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents/>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<columnGroup name="ta_descript" height="18">
+					<bucket>
+						<bucketExpression class="java.lang.String"><![CDATA[$F{ta_descript}]]></bucketExpression>
+					</bucket>
+					<crosstabColumnHeader>
+						<cellContents backcolor="#F0F8FF" mode="Transparent">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField>
+								<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="18"/>
+								<box>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+								</textElement>
+								<textFieldExpression class="java.lang.String"><![CDATA[$V{ta_descript}.substring(5)]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabColumnHeader>
+					<crosstabTotalColumnHeader>
+						<cellContents backcolor="#BFE1FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+						</cellContents>
+					</crosstabTotalColumnHeader>
+				</columnGroup>
+				<measure name="amountMeasure" class="java.math.BigDecimal" calculation="Sum">
+					<measureExpression><![CDATA[$F{amount}]]></measureExpression>
+				</measure>
+				<crosstabCell width="50" height="18">
+					<cellContents>
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField hyperlinkType="LocalAnchor">
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="18"/>
+							<box rightPadding="2">
+								<topPen lineWidth="0.5"/>
+								<leftPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Right" verticalAlignment="Middle">
+								<font size="9" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+							</textElement>
+							<textFieldExpression class="java.lang.String"><![CDATA[$V{amountMeasure}.floatValue()== 0.00 ? "　": $V{amountMeasure}]]></textFieldExpression>
+							<hyperlinkAnchorExpression><![CDATA["REPORT"]]></hyperlinkAnchorExpression>
+							<hyperlinkParameter name="code">
+								<hyperlinkParameterExpression><![CDATA["CTPOS0010"]]></hyperlinkParameterExpression>
+							</hyperlinkParameter>
+							<hyperlinkParameter name="begin_date">
+								<hyperlinkParameterExpression><![CDATA[$P{BEGIN_DATE}]]></hyperlinkParameterExpression>
+							</hyperlinkParameter>
+							<hyperlinkParameter name="end_date">
+								<hyperlinkParameterExpression><![CDATA[$P{END_DATE}]]></hyperlinkParameterExpression>
+							</hyperlinkParameter>
+							<hyperlinkParameter name="PCCODE">
+								<hyperlinkParameterExpression><![CDATA[$V{pccode}]]></hyperlinkParameterExpression>
+							</hyperlinkParameter>
+							<hyperlinkParameter name="EMPID">
+								<hyperlinkParameterExpression><![CDATA[$V{cashier}]]></hyperlinkParameterExpression>
+							</hyperlinkParameter>
+							<hyperlinkParameter name="SHIFT">
+								<hyperlinkParameterExpression><![CDATA[$V{shift1}]]></hyperlinkParameterExpression>
+							</hyperlinkParameter>
+							<hyperlinkParameter name="ACCNT">
+								<hyperlinkParameterExpression><![CDATA[$V{accnt}.substring(1)]]></hyperlinkParameterExpression>
+							</hyperlinkParameter>
+							<hyperlinkParameter name="tocode">
+								<hyperlinkParameterExpression><![CDATA[""]]></hyperlinkParameterExpression>
+							</hyperlinkParameter>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="50" height="0" rowTotalGroup="pccode_name">
+					<cellContents backcolor="#005FB3" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="0" height="18" columnTotalGroup="ta_descript">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="0" height="0" rowTotalGroup="pccode_name" columnTotalGroup="ta_descript">
+					<cellContents backcolor="#005FB3" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="50" height="0" rowTotalGroup="accnt">
+					<cellContents backcolor="#BFE1FF" mode="Transparent">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="0" height="0" rowTotalGroup="accnt" columnTotalGroup="ta_descript">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell rowTotalGroup="gsts">
+					<cellContents/>
+				</crosstabCell>
+				<crosstabCell rowTotalGroup="gsts" columnTotalGroup="ta_descript">
+					<cellContents/>
+				</crosstabCell>
+				<crosstabCell rowTotalGroup="gsts_avg">
+					<cellContents/>
+				</crosstabCell>
+				<crosstabCell rowTotalGroup="gsts_avg" columnTotalGroup="ta_descript">
+					<cellContents/>
+				</crosstabCell>
+				<crosstabCell rowTotalGroup="tablenos">
+					<cellContents/>
+				</crosstabCell>
+				<crosstabCell rowTotalGroup="tablenos" columnTotalGroup="ta_descript">
+					<cellContents/>
+				</crosstabCell>
+				<crosstabCell rowTotalGroup="tablenos_avg">
+					<cellContents/>
+				</crosstabCell>
+				<crosstabCell rowTotalGroup="tablenos_avg" columnTotalGroup="ta_descript">
+					<cellContents/>
+				</crosstabCell>
+				<crosstabCell rowTotalGroup="pccode">
+					<cellContents/>
+				</crosstabCell>
+				<crosstabCell rowTotalGroup="pccode" columnTotalGroup="ta_descript">
+					<cellContents/>
+				</crosstabCell>
+				<crosstabCell rowTotalGroup="cashier">
+					<cellContents/>
+				</crosstabCell>
+				<crosstabCell rowTotalGroup="cashier" columnTotalGroup="ta_descript">
+					<cellContents/>
+				</crosstabCell>
+				<crosstabCell rowTotalGroup="shift1">
+					<cellContents/>
+				</crosstabCell>
+				<crosstabCell rowTotalGroup="shift1" columnTotalGroup="ta_descript">
+					<cellContents/>
+				</crosstabCell>
+			</crosstab>
+		</band>
+	</summary>
+</jasperReport>
