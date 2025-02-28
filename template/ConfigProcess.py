@@ -28,9 +28,10 @@ class ConfigProcess:
         self.db_port = self.connectinfo[connect_name]["db_port"]
         self.db_user = self.connectinfo[connect_name]["db_user"]
         self.db_pwd  = self.connectinfo[connect_name]["db_pwd"]
+        self.is_ssh = self.connectinfo[connect_name]["is_ssh"]
         if self.connectinfo[connect_name]["db_name"]:
             self.db_name = self.connectinfo[connect_name]["db_name"]
-        if self.connectinfo[connect_name]["is_ssh"]:
+        if self.is_ssh:
             self.db_ssh_host = self.connectinfo[connect_name]["db_ssh_host"]
             self.db_ssh_port = self.connectinfo[connect_name]["db_ssh_port"]
             self.db_ssh_user = self.connectinfo[connect_name]["db_ssh_user"]
@@ -43,6 +44,7 @@ class ConfigProcess:
             "db_user": self.db_user,
             "db_pwd" : self.db_pwd,
             "db_name": self.db_name,
+            "is_ssh": self.is_ssh,
             "db_ssh_host": self.db_ssh_host,
             "db_ssh_port": self.db_ssh_port,
             "db_ssh_user": self.db_ssh_user,

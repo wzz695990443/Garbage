@@ -1,6 +1,13 @@
 import datetime
 from template.tool import convert_dict_valuestype
 from template.DBConnect import DBConnect
+
+from template.ORM.Connect import Connect
+from template.ORM.CompanyBase import CompanyBase, Base
+from template.ORM.CompanyType import CompanyType, Base
+from template.ORM.UpStatus import UpStatus, Base
+from template.ORM.UpMapAccnt import UpMapAccnt, Base
+
 import pandas as pd
 
 company_datatype = {'no': 'varchar', 'accnt': 'varchar', 'name': 'varchar', 'valid_begin': 'varchar',
