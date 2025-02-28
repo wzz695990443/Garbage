@@ -1,32 +1,67 @@
+import time
 import pandas as pd
-import numpy as np
-import template.Table
-from template.Table import CompanyBase
+from template.ORM.Connect import Connect
+from template.ORM.CompanyBase import CompanyBase, Base
+from template.CompanyImport import insert_company_base
 
-if __name__ == '__main__':
-    company_base = CompanyBase()
-    company_base.append([9, 2, 0, '绿云', 'Lu Yun', 'Lu Yun', '绿云LuYunLuYunLY', 'F', 'C', 'CN', '1465328798', '', '', '', '', '',
-           '', '', '', '', 'NULL', 'NULL', '', '', 'CN', '', '', '', '杭州市天苑大厦', '', '', 'NULL', '', '', '', '', '', '',
-           'T', 'GCPM', 'ADMIN', '2022-01-12 16:40:02', 'GCPM', 'ADMIN', '2022-08-14 21:42:03', '*'])
-    company_base.hotel_group_id = 2
-    company_base.hotel_id = 9
-    a = company_base.get()
-    for index, row in a.iterrows():
-        print(row)
-        print(type(row))
-        print(int(index))
-    # for item in a.loc[0]:
-    #     print(item)
-    # print(", ".join(row for index,row in a.iterrows()))
-    # for index, row in a.iterrows():
-    #     sql = f'INSERT INTO company_base({", ".join(item for item in company_base.table_columns)}) VALUES ({company_base.hotel_group_id},{company_base.hotel_id},NULL,{", ".join(item for item in row[3:].astype(str))})'
-    #     print(sql)
-    # print(a)
-    # company_base.init_type()
-    # b = company_base.get()
-    # print(b.dtypes)
-    # print(b)
-    # test = pd.DataFrame(['2024-02-01', '2024-02-02','2024-02-03'])
-    # print(test)
-    # test.astype('datetime64[ns]')
-    # print(test)
+
+db_host = "192.168.63.240"
+db_port = 3306
+db_user = "gc_spt"
+db_pwd = "gc_spt20220509"
+db_name = "portal_pms"
+is_ssh = True
+db_ssh_host = "122.224.119.138"
+db_ssh_port = 13305
+db_ssh_user = "root"
+db_ssh_pwd = "240.deviskaifa"
+
+
+if __name__ == "__main__":
+    dict = {
+        "hotel_group_id": 2,
+        "hotel_id": 9,
+        "name": "test",
+        "name2": "test",
+        "name3": "test",
+        "name_combine": "test",
+        "is_save": "F",
+        "language": "C",
+        "nation": "CN",
+        "phone": "13912345678",
+        "mobile": "13912345678",
+        "fax": "13912345678",
+        "email": "",
+        "website": "",
+        "blog": "",
+        "linkman1": "ZS",
+        "occupation": "",
+        "linkman2": "",
+        "country": "CN",
+        "state": "",
+        "city": "",
+        "division": "",
+        "street": "test",
+        "zipcode": "",
+        "representative": "",
+        "register_no": "",
+        "bank_name": "",
+        "bank_account": "",
+        "tax_no": "",
+        "remark": "",
+        "create_hotel": 9,
+        "create_user": "SYSTEM",
+        "create_datetime": time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
+        "modify_hotel": 9,
+        "modify_user": "SYSTEM",
+        "modify_datetime": time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
+    }
+
+    test = pd.DataFrame(dict, index=[0])
+    print(test)
+    try:
+        conn = Connect(db_host = db_host, db_port = db_port, db_user = db_user, db_pwd = db_pwd, db_name = db_name, is_ssh = is_ssh, db_ssh_host = db_ssh_host, db_ssh_port = db_ssh_port, db_ssh_user = db_ssh_user, db_ssh_pwd = db_ssh_pwd)
+        a = insert_company_base(test, conn, 0, 2, 9)
+        print(a)
+    except Exception as e:
+        print(e)

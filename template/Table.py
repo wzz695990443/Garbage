@@ -119,8 +119,10 @@ class CompanyBase(Table):
     def __init__(self):
         super().__init__()
         self.table_name = 'company_base'
-        self.table_columns = tuple(CompanyBaseModel.__fields__.keys())
-        self.table_types = tuple([field.type_.__name__ for field in CompanyBaseModel.__fields__.values()])
+        self.table_columns = tuple(CompanyBaseModel.model_fields.keys())
+        self.table_types = tuple(
+            [field.type_.__name__ for field in CompanyBaseModel.model_fields.values()]
+        )
         self.table_data: pd.DataFrame = pd.DataFrame(columns=self.table_columns)
 
     def append(self, data=None):
