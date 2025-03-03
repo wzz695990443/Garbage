@@ -98,9 +98,7 @@ def insert_company_type(
     round,
     hotel_group_id,
     hotel_id,
-    company_id,
-    valid_begin=time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
-    valid_end='2050-01-01 00:00:00',
+    company_id
 ) -> int:
     try:
         session = conn.connect()
@@ -129,8 +127,15 @@ def insert_company_type(
                 membership_no=validate(data, "membership_no", round),
                 membership_level=validate(data, "membership_level", round),
                 over_rsvsrc=validate(data, "over_rsvsrc", round, default="F"),
-                valid_begin=validate(data, "valid_begin", round, default=valid_begin),
-                valid_end=validate(data, "valid_end", round, default=valid_end),
+                valid_begin=validate(
+                    data,
+                    "valid_begin",
+                    round,
+                    default=time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
+                ),
+                valid_end=validate(
+                    data, "valid_end", round, default="2050-01-01 00:00:00"
+                ),
                 code1=validate(data, "ratecode", round),
                 code2=validate(data, "code2", round),
                 code3=validate(data, "code3", round),

@@ -26,8 +26,8 @@ class my_DatabaseChose(QWidget, Ui_importFunction):
         self.choseFile.clicked.connect(self.choseFile_clicked)
 
     def companyImportrb_clicked(self):
-        self.pmsChose.setDisabled(True)
-        self.pmsChose.setCurrentText("")
+        # self.pmsChose.setDisabled(True)
+        # self.pmsChose.setCurrentText("")
         self.memberChose.setDisabled(True)
         self.memberChose.setCurrentText("")
 
