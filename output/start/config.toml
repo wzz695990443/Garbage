@@ -1,0 +1,41 @@
+[gc_project_group]
+conn_name = '项目部服务器'
+db_type = 'group'
+db_host = '192.168.63.240'
+db_port = 3306
+db_user = 'gc_spt'
+db_pwd  = 'gc_spt20220509'
+db_name = 'portal_group'
+is_ssh  = true
+db_ssh_host = '122.224.119.138'
+db_ssh_port = 13305
+db_ssh_user = 'root'
+db_ssh_pwd  = '240.deviskaifa'
+
+[gc_project_member]
+conn_name = '项目部服务器'
+db_type = 'member'
+db_host = '192.168.63.240'
+db_port = 3306
+db_user = 'gc_spt'
+db_pwd  = 'gc_spt20220509'
+db_name = 'portal_member'
+is_ssh  = true
+db_ssh_host = '122.224.119.138'
+db_ssh_port = 13305
+db_ssh_user = 'root'
+db_ssh_pwd  = '240.deviskaifa'
+
+[gc_project_pms]
+conn_name = '项目部服务器'
+db_type = 'pms'
+db_host = '192.168.63.240'
+db_port = 3306
+db_user = 'gc_spt'
+db_pwd  = 'gc_spt20220509'
+db_name = 'portal_pms'
+is_ssh  = true
+db_ssh_host = '122.224.119.138'
+db_ssh_port = 13305
+db_ssh_user = 'root'
+db_ssh_pwd  = '240.deviskaifa'
