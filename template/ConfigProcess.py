@@ -18,7 +18,7 @@ class ConfigProcess:
         self.db_host = None
         self.connectinfo = None
 
-        with open("./config.toml", "rb") as fp:
+        with open("config.toml", "rb") as fp:
             self.connectinfo = tomllib.load(fp)
 
     def get_conn_info(self, connect_name):

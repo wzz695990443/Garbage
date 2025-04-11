@@ -31,11 +31,18 @@
      <property name="title">
       <string>功能选择</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_3">
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
       <item>
        <widget class="QRadioButton" name="companyImportrb">
         <property name="text">
          <string>协议单位导入</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="memberImportrb">
+        <property name="text">
+         <string>会员导入</string>
         </property>
        </widget>
       </item>

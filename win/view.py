@@ -2,7 +2,7 @@ import sys
 from PySide6.QtWidgets import QApplication, QWidget,QFileDialog,QMessageBox
 from PySide6.scripts.project import QMLDIR_FILE
 
-from win.QTdesign.DatabaseChose import Ui_importFunction
+from win.QTdesign.DatabaseChose_ui import Ui_importFunction
 from template.ConfigProcess import ConfigProcess
 from template.DBtestconnect import DBtestconnect
 from win.ExcelTable import ExcelTable
